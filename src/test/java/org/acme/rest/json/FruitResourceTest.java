@@ -9,8 +9,12 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 public class FruitResourceTest extends AbstractTest {
 
+    @DockerService("test")
+    DockerComposeService service;
+
     @Test
     public void testHelloEndpoint() {
+        System.out.println("RESULT: " + service.value);
         given()
           .when().get("/fruits")
           .then()
@@ -18,12 +22,4 @@ public class FruitResourceTest extends AbstractTest {
              .body(is("hello"));
     }
 
-    @Test
-    public void testHelloEndpoint2() {
-        given()
-                .when().get("/fruits")
-                .then()
-                .statusCode(200)
-                .body(is("hello"));
-    }
 }
